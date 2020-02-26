@@ -1,0 +1,133 @@
+<odoo>
+  <data>
+
+    <record id="open_patient_appointment" model="ir.actions.act_window">
+      <field name="name">Appointments</field>
+      <field name="res_model">hospital.appointment</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('patient_id', '=', active_id)]</field>
+      <field name="context" eval="{}"/>
+    </record>
+
+    <!-- sale order add patient field -->
+    <record id="sale_order_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+          <field name="partner_id" position="after">
+            <field name="patient_name"/>
+          </field>
+        </field>
+    </record>
+
+    <!-- patient tree view -->
+    <record id="patient_tree" model="ir.ui.view">
+      <field name="name">hospital.patient.tree</field>
+      <field name="model">hospital.patient</field>
+      <field name="arch" type="xml">
+        <tree string="Patients">
+          <field name="name_seq"/>
+          <field name="patient_name"/>
+          <field name="gender"/>
+          <field name="patient_age"/>
+          <field name="age_group"/>
+          <field name="note"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- patient form view -->
+    <record id="patient_form" model="ir.ui.view">
+      <field name="name">hospital.patient.form</field>
+      <field name="model">hospital.patient</field>
+      <field name="arch" type="xml">
+        <form string="Patients">
+          <sheet>
+            <div name="button_box" class="oe_button_box">
+              <button name="open_patient_appointment"
+                class="oe_stat_button"
+                icon="fa-calendar"
+                type="object"
+              >
+                <field name="appointment_count" string="Appointments" widget="statinfo"/>
+              </button>
+
+              <button name="%(open_patient_appointment)d"
+                class="oe_stat_button"
+                icon="fa-usd"
+                type="action"
+              >
+                <field name="appointment_count" string="Appointments" widget="statinfo"/>
+              </button>
+            </div>
+            <div class="oe_title">
+              <field name="image" widget="image" class="oe_avatar"/>
+              <h1>
+                <field name="patient_name" required="True"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="name_seq" readonly="1"/>
+              </group>
+              <group>
+                <field name="gender"/>
+                <field name="patient_age"/>
+                <field name="age_group"/>
+              </group>
+            </group>
+            <group>
+              <field name="note"/>
+            </group>
+          </sheet>
+
+          <!-- Chatter -->
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- custom search & filter -->
+    <record id="hospital_patient_search" model="ir.ui.view">
+      <field name="name">hospital.patient.search</field>
+      <field name="model">hospital.patient</field>
+      <field name="arch" type="xml">
+        <search string="Search Patients">
+          <field name="patient_name" filter_domain="['|', ('patient_name','ilike',self), ('name_seq','ilike',self)]"/>
+          <field name="name_seq"/>
+          <separator/>
+          <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+          <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+          <group expand="0" string="Group By">
+            <filter string="Gender" name="gender" context="{'group_by':'gender'}" />
+          </group>
+        </search>
+      </field>
+    </record>
+
+
+    <!-- menu -->
+    <record id="action_patient" model="ir.actions.act_window">
+      <field name="name">Patients</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hospital.patient</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context" eval="{}"/>
+      <!-- <field name="context" eval="{'search_default_male': '1'}"/> -->
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create a patient
+        </p>
+      </field>
+    </record>
+
+    <menuitem name="Hospital" id="hospital.root" sequence="0"/>
+    <menuitem name="Patients" id="hospital.patient" parent="hospital.root" action="action_patient" sequence="1"/>
+
+  </data>
+</odoo>
