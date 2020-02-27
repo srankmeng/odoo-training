@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_patient">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <h2 class="my-4">Patient Card</h2>
+                    <p>Code: <t t-esc="doc.name_seq"/></p>
+                    <p>Name: <t t-esc="doc.patient_name"/></p>
+                    <p>Age: <t t-esc="doc.patient_age"/></p>
+                    <p>Gender: <t t-esc="doc.gender"/></p>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+</odoo>

@@ -11,6 +11,7 @@
           <field name="patient_id"/>
           <field name="patient_age"/>
           <field name="appointment_date"/>
+          <field name="state"/>
           <field name="note"/>
         </tree>
       </field>
@@ -22,6 +23,11 @@
       <field name="model">hospital.appointment</field>
       <field name="arch" type="xml">
         <form string="Appointments">
+          <header>
+            <button string="Confirm" name="action_confirm" type="object" states="draft" class="oe_highlight"/>
+            <button string="Done" name="action_done" type="object" states="confirm" class="oe_highlight"/>
+            <field name="state" widget='statusbar' statusbar_visible="draft,confirm,done" />
+          </header>
           <sheet>
             <div class="oe_title">
               <h1>
@@ -40,6 +46,18 @@
             <group>
               <field name="note"/>
             </group>
+            <notebook>
+              <page string="Doctor Prescription">
+                <group>
+                  <field name="doctor_note"/>
+                </group>
+              </page>
+              <page string="Pharmacy">
+                <group>
+                  <field name="pharmacy_note"/>
+                </group>
+              </page>
+            </notebook>
           </sheet>
 
           <div class="oe_chatter">

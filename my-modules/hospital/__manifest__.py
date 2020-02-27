@@ -23,10 +23,13 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        # 'data/data.xml',
         'data/sequence.xml',
         'views/patient.xml',
         'views/appointment.xml',
         'views/templates.xml',
+        'reports/report.xml',
+        'reports/patient_card.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+      <record id="patient_xyz" model="hospital.patient">
+        <field name="patient_name">namekrub</field>
+        <field name="patient_age">20</field>
+        <field name="gender">male</field>
+        <field name="note">noteeee</field>
+      </record>
+
+    </data>
+</odoo>

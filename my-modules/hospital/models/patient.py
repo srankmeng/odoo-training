@@ -57,6 +57,7 @@ class HospitalPatient(models.Model):
     image = fields.Binary(string="Image", attachment=True)
     name_seq = fields.Char(string='Patient Code', required=True, copy=False, readonly=True, index=True, default=lambda self: _('New'))
     appointment_count = fields.Integer('Appointment', compute='get_appointment_count')
+    active = fields.Boolean('Active', default=True)
 
     @api.model
     def create(self, vals):
