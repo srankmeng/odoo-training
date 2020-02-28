@@ -32,6 +32,7 @@ class HospitalAppointment(models.Model):
     note = fields.Text(string="Registration Note", default=_get_default_note)
     doctor_note = fields.Text(string="Note")
     pharmacy_note = fields.Text(string="Note")
+    appointment_lines = fields.One2many('hospital.appointment.lines', 'appointment_id', string='Appointment Lines')
     appointment_date = fields.Date(string="Date", required=True)
     state = fields.Selection(selection=[
         ('draft', 'Draft'),
@@ -40,3 +41,12 @@ class HospitalAppointment(models.Model):
         ('cancel', 'Cancelled')
     ], string='Status', required=True, default='draft')
 
+class HospitalAppointmentLines(models.Model):
+    _name = 'hospital.appointment.lines'
+    _description = 'Appointment Lines'
+
+
+    product_id = fields.Many2one('product.product', string='Medicine')
+    product_qty = fields.Integer(string='Quantity')
+    appointment_id = fields.Many2one('hospital.appointment', string='Appointment ID')
+   

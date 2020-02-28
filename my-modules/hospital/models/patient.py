@@ -58,6 +58,7 @@ class HospitalPatient(models.Model):
     name_seq = fields.Char(string='Patient Code', required=True, copy=False, readonly=True, index=True, default=lambda self: _('New'))
     appointment_count = fields.Integer('Appointment', compute='get_appointment_count')
     active = fields.Boolean('Active', default=True)
+    doctor_id = fields.Many2one('hospital.doctor', string='Doctor')
 
     @api.model
     def create(self, vals):
