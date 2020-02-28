@@ -26,6 +26,7 @@
         'security/security.xml',
         # 'data/data.xml',
         'data/sequence.xml',
+        'wizards/create_appointment.xml',
         'views/patient.xml',
         'views/appointment.xml',
         'views/doctor.xml',

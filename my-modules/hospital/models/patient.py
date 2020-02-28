@@ -14,6 +14,12 @@ class HospitalPatient(models.Model):
     _description = 'Patient record'
     _rec_name = 'patient_name'
 
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, '%s - %s' % (rec.name_seq, rec.patient_name)))
+        return res
+
     @api.constrains('patient_age')
     def check_age(self):
         for rec in self:
@@ -43,6 +49,12 @@ class HospitalPatient(models.Model):
             'type': 'ir.actions.act_window',
         }
 
+    @api.onchange('doctor_id')
+    def set_doctor_gender(self):
+        for rec in self:
+            if rec.doctor_id:
+                rec.doctor_gender = rec.doctor_id.gender
+
     patient_name = fields.Char(string='Name', required=True, track_visibility='always')
     patient_age = fields.Integer('Age', track_visibility='always')
     note = fields.Text(string="Note")
@@ -59,6 +71,10 @@ class HospitalPatient(models.Model):
     appointment_count = fields.Integer('Appointment', compute='get_appointment_count')
     active = fields.Boolean('Active', default=True)
     doctor_id = fields.Many2one('hospital.doctor', string='Doctor')
+    doctor_gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female')
+    ], string="Doctor Gender")
 
     @api.model
     def create(self, vals):

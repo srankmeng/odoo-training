@@ -9,6 +9,19 @@
       <field name="context" eval="{}"/>
     </record>
 
+
+    <record id="action_patient_appointments" model="ir.actions.act_window">
+      <field name="name">Appointments</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hospital.appointment</field>
+      <!-- <field name="view_type">form</field> -->
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('patient_id', '=', active_id)]</field>
+      <field name="view_id" ref="hospital.appointment_tree"/>
+      <field name="binding_model_id" ref="model_hospital_patient"/>
+    </record>
+    
+
     <!-- sale order add patient field -->
     <record id="sale_order_inherit" model="ir.ui.view">
         <field name="name">sale.order.inherit</field>
@@ -43,6 +56,15 @@
       <field name="model">hospital.patient</field>
       <field name="arch" type="xml">
         <form string="Patients">
+          <header>
+            <button
+              name="%(hospital.create_appointment_wizard)d"
+              string="Create appointment"
+              type="action"
+              class="oe_highlight"
+              context="{'default_patient_id': active_id}"
+            />
+          </header>
           <sheet>
             <div name="button_box" class="oe_button_box">
               <button name="open_patient_appointment"
@@ -78,6 +100,7 @@
               <group>
                 <field name="name_seq" readonly="1"/>
                 <field name="doctor_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                <field name="doctor_gender"/>
               </group>
               <group>
                 <field name="gender"/>
@@ -136,6 +159,7 @@
 
     <menuitem name="Hospital" id="hospital.root" sequence="0"/>
     <menuitem name="Patients" id="hospital.patient" parent="hospital.root" action="action_patient" sequence="1"/>
+  
 
   </data>
 </odoo>
