@@ -64,6 +64,12 @@
               class="oe_highlight"
               context="{'default_patient_id': active_id}"
             />
+            <button
+              name="action_send_card"
+              string="Send by email"
+              type="object"
+              class="oe_highlight"
+            /> 
           </header>
           <sheet>
             <div name="button_box" class="oe_button_box">
@@ -98,12 +104,15 @@
             </div>
             <group>
               <group>
+                <field name="patient_name_upper"/>
                 <field name="name_seq" readonly="1"/>
                 <field name="doctor_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
                 <field name="doctor_gender"/>
+                <field name="user_id"/>
               </group>
               <group>
-                <field name="gender"/>
+                <field name="gender" groups="hospital.group_hospital_manager"/> <!-- visible field when user in manager group -->
+                <field name="email_id"/>
                 <field name="patient_age"/>
                 <field name="age_group"/>
               </group>

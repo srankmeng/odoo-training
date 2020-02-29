@@ -14,6 +14,14 @@ class HospitalPatient(models.Model):
     _description = 'Patient record'
     _rec_name = 'patient_name'
 
+    @api.model
+    def test_cron_job(self):
+        print("""
+            =============
+            test cron job
+            =============
+        """)
+    
     def name_get(self):
         res = []
         for rec in self:
@@ -55,6 +63,27 @@ class HospitalPatient(models.Model):
             if rec.doctor_id:
                 rec.doctor_gender = rec.doctor_id.gender
 
+    def action_send_card(self):
+        template_id = self.env.ref('hospital.patient_card_email_template').id
+        template = self.env['mail.template'].browse(template_id)
+        template.send_mail(self.id, force_send=True)
+
+    @api.depends('patient_name')
+    def _compute_upper_name(self):
+        for rec in self:
+            rec.patient_name_upper = rec.patient_name.upper() if rec.patient_name else False
+
+    def _inverse_upper_name(self):
+        for rec in self:
+            rec.patient_name = rec.patient_name_upper.lower() if rec.patient_name_upper else False
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name_seq', _('New')) == _('New'):
+            vals['name_seq'] = self.env['ir.sequence'].next_by_code('hospital.patience.sequence') or _('New')
+        result = super(HospitalPatient, self).create(vals)
+        return result
+
     patient_name = fields.Char(string='Name', required=True, track_visibility='always')
     patient_age = fields.Integer('Age', track_visibility='always')
     note = fields.Text(string="Note")
@@ -68,6 +97,8 @@ class HospitalPatient(models.Model):
     ], string='Age Group', compute='set_age_group')
     image = fields.Binary(string="Image", attachment=True)
     name_seq = fields.Char(string='Patient Code', required=True, copy=False, readonly=True, index=True, default=lambda self: _('New'))
+    email_id = fields.Char(string="Email")
+    user_id = fields.Many2one('res.users', string="PRO")
     appointment_count = fields.Integer('Appointment', compute='get_appointment_count')
     active = fields.Boolean('Active', default=True)
     doctor_id = fields.Many2one('hospital.doctor', string='Doctor')
@@ -75,13 +106,7 @@ class HospitalPatient(models.Model):
         ('male', 'Male'),
         ('female', 'Female')
     ], string="Doctor Gender")
-
-    @api.model
-    def create(self, vals):
-        if vals.get('name_seq', _('New')) == _('New'):
-            vals['name_seq'] = self.env['ir.sequence'].next_by_code('hospital.patience.sequence') or _('New')
-        result = super(HospitalPatient, self).create(vals)
-        return result
+    patient_name_upper = fields.Char(compute='_compute_upper_name', inverse='_inverse_upper_name')
 
 
 # from odoo import models, fields, api

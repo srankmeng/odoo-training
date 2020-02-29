@@ -27,8 +27,9 @@ class CreateAppointment(models.TransientModel):
             'appointment_date': self.appointment_date,
             'note': 'Created From The Wizard/Code'
         }
+        self.patient_id.message_post(body="Creating appointment successfully", subject="Appointment Creation")
         self.env['hospital.appointment'].create(vals)
-        # self.patient_id.message_post(body="Test string ", subject="Appointment Creation")
+        
         # new_appointment = self.env['hospital.appointment'].create(vals)
         # context = dict(self.env.context)
         # context['form_view_initial_mode'] = 'edit'
@@ -40,10 +41,11 @@ class CreateAppointment(models.TransientModel):
         #         'context': context
         #         }
 
-    # def get_data(self):
-    #     appointments = self.env['hospital.appointment'].search([])
-    #     for rec in appointments:
-    #         print("Appointment Name", rec.name)
-    #     return{
-    #         "type": "ir.actions.do_nothing"
-    #     }
+    def get_data(self):
+        appointments = self.env['hospital.appointment'].search([])
+        print("appointments", appointments)
+        for rec in appointments:
+            print("Appointment Name", rec.name)
+        # return{
+        #     "type": "ir.actions.do_nothing"
+        # }

@@ -22,6 +22,12 @@ class HospitalAppointment(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('hospital.appointment') or _('New')
         result = super(HospitalAppointment, self).create(vals)
         return result
+    
+    def write(self, vals):
+        # overriding the write method of appointment model
+        res = super(HospitalAppointment, self).write(vals)
+        print("Test write function, Test write function, Test write function, Test write function, ")
+        return res
 
     def _get_default_note(self):
         return 'just default note'

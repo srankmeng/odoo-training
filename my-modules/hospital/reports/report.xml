@@ -8,4 +8,13 @@
         name="hospital.report_patient"
         file="hospital.report_patient"
     />
+
+    <!-- not work -->
+    <report id="report_patient_card_xlsx"
+        model="hospital.patient"
+        string="Patiend Card Excel"
+        report_type="xlsx"
+        name="hospital.report_patient_xlsx"
+        file="hospital.report_patient_xlsx"
+    />
 </odoo>
