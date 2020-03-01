@@ -7,7 +7,7 @@ class HospitalSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     note = fields.Char(string='Default Note')
-    # module_crm = fields.Boolean(string='CRM')
+    module_crm = fields.Boolean(string='CRM')
     # product_ids = fields.Many2many('product.product', string='Medicines')
 
     def set_values(self):

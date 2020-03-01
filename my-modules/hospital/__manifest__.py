@@ -34,6 +34,7 @@
         'views/doctor.xml',
         'views/lab.xml',
         'views/templates.xml',
+        'views/sale_order.xml',
         'views/settings.xml',
         'reports/appointment.xml',
         'reports/report.xml',
