@@ -23,6 +23,21 @@
                                     </td>
                                 </tr>
                             </table>
+                            <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                                <t t-foreach="appointment_list" t-as="app">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="app['name']" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="app['note']" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="app['appointment_date']" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
                         </center>
                     </div>
                 </t>

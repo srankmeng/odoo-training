@@ -9,6 +9,15 @@
         file="hospital.report_patient"
     />
 
+    <report
+        id="report_appointment"
+        string="Appointment"
+        model="hospital.patient"
+        report_type="qweb-pdf"
+        name="hospital.appointment_report"
+        file="hospital.appointment_report"
+    />
+
     <!-- not work -->
     <report id="report_patient_card_xlsx"
         model="hospital.patient"

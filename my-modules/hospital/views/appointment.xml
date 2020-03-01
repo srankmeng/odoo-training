@@ -26,6 +26,7 @@
           <header>
             <button string="Confirm" name="action_confirm" type="object" states="draft" class="oe_highlight"/>
             <button string="Done" name="action_done" type="object" states="confirm" class="oe_highlight"/>
+            <button string="Delete" name="delete_lines" type="object" class="oe_highlight"/>
             <field name="state" widget='statusbar' statusbar_visible="draft,confirm,done" />
           </header>
           <sheet>
@@ -41,6 +42,15 @@
               <group>
                 <field name="patient_age"/>
                 <field name="appointment_date"/>
+              </group>
+            </group>
+            <group>
+              <group>
+                <field name="partner_id"/>
+                <field name="order_id"/>
+              </group>
+              <group>
+           
               </group>
             </group>
             <group>

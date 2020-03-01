@@ -14,6 +14,9 @@ class HospitalPatient(models.Model):
     _description = 'Patient record'
     _rec_name = 'patient_name'
 
+    def print_report(self):
+        return self.env.ref('hospital.report_patient_card').report_action(self)
+
     @api.model
     def test_cron_job(self):
         print("""
@@ -94,7 +97,7 @@ class HospitalPatient(models.Model):
     age_group = fields.Selection([
         ('major', 'Major'),
         ('minor', 'Minor')
-    ], string='Age Group', compute='set_age_group')
+    ], string='Age Group', compute='set_age_group', store=True)
     image = fields.Binary(string="Image", attachment=True)
     name_seq = fields.Char(string='Patient Code', required=True, copy=False, readonly=True, index=True, default=lambda self: _('New'))
     email_id = fields.Char(string="Email")

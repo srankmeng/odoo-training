@@ -10,16 +10,16 @@ class CreateAppointment(models.TransientModel):
     patient_id = fields.Many2one('hospital.patient', string="Patient")
     appointment_date = fields.Date(string="Appointment Date")
 
-    # def print_report(self):
-    #     data = {
-    #         'model': 'create.appointment',
-    #         'form': self.read()[0]
-    #     }
-    #     return self.env.ref('om_hospital.report_appointment').with_context(landscape=True).report_action(self, data=data)
+    def print_report(self):
+        data = {
+            'model': 'create.appointment',
+            'form': self.read()[0]
+        }
+        return self.env.ref('hospital.report_appointment').report_action(self, data=data)
 
-    # def delete_patient(self):
-    #     for rec in self:
-    #         rec.patient_id.unlink()
+    def delete_patient(self):
+        for rec in self:
+            rec.patient_id.unlink()
 
     def create_appointment(self):
         vals = {
@@ -46,6 +46,6 @@ class CreateAppointment(models.TransientModel):
         print("appointments", appointments)
         for rec in appointments:
             print("Appointment Name", rec.name)
-        # return{
-        #     "type": "ir.actions.do_nothing"
-        # }
+        return{
+            "type": "ir.actions.do_nothing"
+        }
