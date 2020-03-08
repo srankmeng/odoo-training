@@ -61,7 +61,8 @@ class HospitalAppointment(models.Model):
     doctor_note = fields.Text(string="Note")
     pharmacy_note = fields.Text(string="Note")
     appointment_lines = fields.One2many('hospital.appointment.lines', 'appointment_id', string='Appointment Lines')
-    appointment_date = fields.Date(string="Date", required=True)
+    appointment_date = fields.Date(string="Date")
+    # appointment_date_end = fields.Date(string="Date End")
     partner_id = fields.Many2one('res.partner', string="Partner")
     order_id = fields.Many2one('sale.order', string="Sale order")
     state = fields.Selection(selection=[
