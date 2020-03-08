@@ -11,6 +11,13 @@ class HospitalAppointment(models.Model):
     def action_confirm(self):
         for rec in self:
             rec.state = 'confirm'
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': 'Confirmed ... Thank you',
+                    'type': 'rainbow_man',
+                }
+            }
 
     def action_done(self):
         for rec in self:
