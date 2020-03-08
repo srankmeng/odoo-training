@@ -15,7 +15,7 @@ class CreateAppointment(models.TransientModel):
             'model': 'create.appointment',
             'form': self.read()[0]
         }
-        return self.env.ref('hospital.report_appointment').report_action(self, data=data)
+        return self.env.ref('hospital.report_appointment').with_context(landscape=True).report_action(self, data=data)
 
     def delete_patient(self):
         for rec in self:
@@ -28,18 +28,18 @@ class CreateAppointment(models.TransientModel):
             'note': 'Created From The Wizard/Code'
         }
         self.patient_id.message_post(body="Creating appointment successfully", subject="Appointment Creation")
-        self.env['hospital.appointment'].create(vals)
+        # self.env['hospital.appointment'].create(vals)
         
-        # new_appointment = self.env['hospital.appointment'].create(vals)
-        # context = dict(self.env.context)
-        # context['form_view_initial_mode'] = 'edit'
-        # return {'type': 'ir.actions.act_window',
-        #         'view_type': 'form',
-        #         'view_mode': 'form',
-        #         'res_model': 'hospital.appointment',
-        #         'res_id': new_appointment.id,
-        #         'context': context
-        #         }
+        new_appointment = self.env['hospital.appointment'].create(vals)
+        context = dict(self.env.context)
+        context['form_view_initial_mode'] = 'edit'
+        return {'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'hospital.appointment',
+                'res_id': new_appointment.id,
+                'context': context
+                }
 
     def get_data(self):
         appointments = self.env['hospital.appointment'].search([])

@@ -89,6 +89,7 @@ class HospitalPatient(models.Model):
 
     patient_name = fields.Char(string='Name', required=True, track_visibility='always')
     patient_age = fields.Integer('Age', track_visibility='always', group_operator=False)
+    patient_age2 = fields.Integer('Age2')
     note = fields.Text(string="Note")
     gender = fields.Selection([
         ('male', 'Male'),
