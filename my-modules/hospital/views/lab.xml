@@ -44,7 +44,4 @@
         </field>
     </record>
 
-    <menuitem id="hospital.lab" name="Lab" parent="hospital.root"
-              action="action_lab" sequence="5"/>
-
 </odoo>

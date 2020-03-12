@@ -209,9 +209,5 @@
       </field>
     </record>
 
-    <menuitem name="Hospital" id="hospital.root" sequence="0"/>
-    <menuitem name="Patients" id="hospital.patient" parent="hospital.root" action="action_patient" sequence="1"/>
-  
-
   </data>
 </odoo>

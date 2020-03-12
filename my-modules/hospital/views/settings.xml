@@ -49,15 +49,4 @@
         <field name="context">{'module' : 'hospital'}</field>
     </record>
 
-    <menuitem id="menu_hospital_configuration"
-        name="Configuration"
-        parent="hospital.root"
-        sequence="100"/>
-
-    <menuitem id="menu_hospital_settings"
-        name="Settings"
-        parent="menu_hospital_configuration"
-        sequence="10"
-        action="action_hospital_config_settings"/>
-
 </odoo>

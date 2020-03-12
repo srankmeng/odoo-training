@@ -54,6 +54,4 @@
         <field name="view_id" ref="dashboard_form_view"/>
     </record>
 
-    <menuitem name="Dashboard" id="hospital.dashboard" parent="hospital.root" action="action_dashboard" sequence="20"/>
-
 </odoo>

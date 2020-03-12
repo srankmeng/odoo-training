@@ -161,8 +161,6 @@
         </p>
       </field>
     </record>
-
-    <menuitem name="Appointments" id="hospital.appointment" parent="hospital.root" action="action_appointment" sequence="2"/>
     
   </data>
 </odoo>
