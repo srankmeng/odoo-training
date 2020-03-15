@@ -8,6 +8,10 @@ class HospitalAppointment(models.Model):
     _description = 'Appointment'
     _order = 'appointment_date desc'
     
+    def action_notify(self):
+        for rec in self:
+            rec.doctor_id.related_user.notify_danger('Appointmenttt')
+
     def action_confirm(self):
         for rec in self:
             rec.state = 'confirm'
@@ -72,12 +76,26 @@ class HospitalAppointment(models.Model):
     # appointment_date_end = fields.Date(string="Date End")
     partner_id = fields.Many2one('res.partner', string="Partner")
     order_id = fields.Many2one('sale.order', string="Sale order")
+    product_id = fields.Many2one('product.template', string="Product Template")
     state = fields.Selection(selection=[
         ('draft', 'Draft'),
         ('confirm', 'Confirm'),
         ('done', 'Done'),
         ('cancel', 'Cancelled')
     ], string='Status', required=True, default='draft')
+
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        for rec in self:
+            lines = [(5, 0, 0)]
+            # lines = []
+            for line in self.product_id.product_variant_ids:
+                val = {
+                    'product_id': line.id,
+                    'product_qty': 15
+                }
+                lines.append((0, 0, val))
+            rec.appointment_lines = lines
 
 class HospitalAppointmentLines(models.Model):
     _name = 'hospital.appointment.lines'
@@ -86,5 +104,6 @@ class HospitalAppointmentLines(models.Model):
 
     product_id = fields.Many2one('product.product', string='Medicine')
     product_qty = fields.Integer(string='Quantity')
+    sequence = fields.Integer(string='Sequence')
     appointment_id = fields.Many2one('hospital.appointment', string='Appointment ID')
    

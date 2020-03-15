@@ -16,6 +16,14 @@ from odoo.http import request
 #         print("Inherited Odoo Mates ....", res)
 #         return res
 
+class Appointment(http.Controller):
+    @http.route('/hospital/appointments', type='json', auth='user')
+    def appointment_banner(self):
+        return {
+            'html': """
+                <h2><center>testttt bannerrr</center></h2>
+            """
+        }
 
 class Hospital(http.Controller):
 

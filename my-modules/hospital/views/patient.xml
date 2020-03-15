@@ -44,8 +44,8 @@
           <field name="patient_name"/>
           <field name="gender"/>
           <field name="patient_age"/>
-          <field name="age_group"/>
-          <field name="note"/>
+          <field name="age_group" optional="hide" />
+          <field name="note" />
         </tree>
       </field>
     </record>

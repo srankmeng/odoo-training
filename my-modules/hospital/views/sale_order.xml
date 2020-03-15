@@ -17,6 +17,23 @@
         <field name="name">Sale orders</field>
     </record>
 
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="mobile" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <!-- <field name="website" position="attributes">
+                <attribute name="attrs">{'required':[('customer','=',True)]}</attribute>
+            </field> -->
+        </field>
+    </record>
+
     <!--First method suggested-->
     <!-- <record id="sale.menu_sale_quotations" model="ir.ui.menu">
         <field name="name">New Quotation</field>

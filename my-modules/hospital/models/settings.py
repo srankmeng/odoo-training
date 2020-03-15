@@ -2,7 +2,6 @@
 from odoo import models, fields, api,  _
 from ast import literal_eval
 
-
 class HospitalSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
@@ -23,10 +22,16 @@ class HospitalSettings(models.TransientModel):
         ICPSudo = self.env['ir.config_parameter'].sudo()
         notes = ICPSudo.get_param('hospital.note')
         product_ids = self.env['ir.config_parameter'].sudo().get_param('hospital.product_ids')
-        # print("product_ids", type(literal_eval(product_ids)))
-        res.update(
-            note=notes,
-            product_ids=[(6, 0, literal_eval(product_ids))],
-        )
+        print("product_ids", product_ids)
+        if(product_ids):
+            res.update(
+                note=notes,
+                product_ids=[(6, 0, literal_eval(product_ids))],
+            )
+        else:
+            res.update(
+                note=notes,
+                product_ids=[(6, 0, literal_eval('False'))],
+            )
         return res
 

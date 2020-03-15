@@ -18,7 +18,7 @@
     'version': '0.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'sale', 'board', 'report_xlsx'],
+    'depends': ['base', 'mail', 'sale', 'board', 'report_xlsx', 'web_notify'],
 
     # always loaded
     'data': [
@@ -39,6 +39,7 @@
         'views/menu.xml',
         'views/templates.xml',
         'views/sale_order.xml',
+        'views/server_action.xml',
         'data/cron.xml',
         'data/sequence.xml',
         'data/mail_template.xml',
